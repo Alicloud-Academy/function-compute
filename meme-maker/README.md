@@ -28,6 +28,13 @@ After you install `fun` you need to run `fun configure` and enter your Account I
 
 From the `fc-function` directory, you'll need to run `fun build` which will build your function and pull in any external dependencies (from apt or pip) defined in `fun.yml`. Finally, run `fun deploy` to deploy your code onto Alibaba Cloud. `fun deploy` will look at the contents of `template.yml` to determine how your function (and the service containing it) should be named, as well as any triggers that should be configured (in this case, an HTTP trigger). 
 
+So remember, the steps to deploy are:
+
+1. `fun build`
+2. `fun deploy`
+
+That's it! See the section below to learn how to generate valid URI strings to actually call the new FC function via curl or your favorite web browser.
+
 ### Testing it out
 
 One of the outputs returned by `fun deploy` is the URL endpoint of our new Function Compute function. But how can we generate a URL with the correct parameters `imgUrl`, `topText`, and `bottomText`? And how will we handle encoding special characters? 
