@@ -56,10 +56,14 @@ To save you the trouble of entering the same things over and over again, `genUrl
 
 If you are just curious about how Python's PIL was used to make memes, and aren't interested in reading  through all the URL parsing code in index.py (our Function Compute function code), take a look at `utilities/imageFetcher.py`, which contains just the meme generation code. This Python script takes a URL, top text, and bottom text as input. It uses Python `requests` to fetch the photo, and PIL to add text to the image and save it to disk. It saves both the original photo fetched by `requests`, as well as the newly edited photo, which goes in a file called `out.jpg`. Note the extension could vary, it depends on the extension used by the original image. 
 
-### Issues
+## Issues
 
 If you do not bind a custom domain name to your Function Compute function, then the Function Compute service will **force** the `Content-Disposition` header in the HTTP response to use `attachment` instead of `inline`. This means that the image file returned by Function Compute will be downloaded as a local file, rather than displayed in the browser.
 
 Binding a domain name to function compute fixes this issue. See [here](https://www.alibabacloud.com/help/doc-detail/90722.htm) for instructions on how to do this.
 
 Don't worry: your function still works just fine even without a custom domain, but the file downloaded by your browser may be missing its extension (such as `.jpg` or `.png`), and you'll have to rename the file in order to open it. *We recommend you bind a custom domain name if possible*.
+
+## Credits
+
+My Python 3 meme-maker code was inspired by [this awesome blog post](https://blog.lipsumarium.com/caption-memes-in-python/). The font oswald_bold.ttf I use to caption memes comes from [here](https://fonts.google.com/specimen/Oswald).
