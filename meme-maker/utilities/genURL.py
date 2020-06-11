@@ -63,7 +63,7 @@ params = '?imgUrl=' + imgUrlEnc + '&topText=' + topTextEnc + '&bottomText=' + bo
 if config['customUrl'] != '':
     url = 'http://' + config['customUrl'] + config['functionUrl'].split('.com')[1] + params
 else:
-    url = functionUrl + params
+    url = config['functionUrl'] + params
 
 # Print out URL + parameters (can copy-paste directly into browser to
 # text FC function)

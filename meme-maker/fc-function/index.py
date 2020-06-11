@@ -111,42 +111,43 @@ def handler(environ, start_response):
 
     # Then, meme-ify the image
     # Prepare the image for captioning using Python's PIL
-    img = Image.open(io.BytesIO(r.content))
-    drawLayer = ImageDraw.Draw(img)
+    if allIsWell:
+        img = Image.open(io.BytesIO(r.content))
+        drawLayer = ImageDraw.Draw(img)
 
-    # Loop until we find a font size that will allow both the top
-    # and bottom text to fit comfortably on a single line. This 
-    # way we can avoid any issues with splitting lines or working out
-    # centering and padding for multiple lines
-    fontSize = 200 # Start at an enormous size, for high resolution images
-    while True:
-        fontType = ImageFont.truetype("oswald_bold.ttf", fontSize)
-        # Determine the width and height of the top and bottom text
-        widthTop, heightTop = drawLayer.textsize(topText, fontType)
-        widthBottom, heightBottom = drawLayer.textsize(bottomText, fontType)
+        # Loop until we find a font size that will allow both the top
+        # and bottom text to fit comfortably on a single line. This 
+        # way we can avoid any issues with splitting lines or working out
+        # centering and padding for multiple lines
+        fontSize = 200 # Start at an enormous size, for high resolution images
+        while True:
+            fontType = ImageFont.truetype("oswald_bold.ttf", fontSize)
+            # Determine the width and height of the top and bottom text
+            widthTop, heightTop = drawLayer.textsize(topText, fontType)
+            widthBottom, heightBottom = drawLayer.textsize(bottomText, fontType)
 
-        # Check to see if either the top or bottom text is too big to fit
-        topExceedsMaxWidth = widthTop >= img.width * 0.8
-        bottomExceedsMaxWidth = widthBottom >= img.width * 0.8
+            # Check to see if either the top or bottom text is too big to fit
+            topExceedsMaxWidth = widthTop >= img.width * 0.8
+            bottomExceedsMaxWidth = widthBottom >= img.width * 0.8
 
-        # Quit when we reach a reasonable size
-        if not topExceedsMaxWidth and not bottomExceedsMaxWidth:
-            break
+            # Quit when we reach a reasonable size
+            if not topExceedsMaxWidth and not bottomExceedsMaxWidth:
+                break
 
-        fontSize -= 1
+            fontSize -= 1
 
-        # Check if the fontsize shrinks to nothing
-        if fontSize < 1:
-            print("Something has gone terribly wrong...")
-            exit(-1)
+            # Check if the fontsize shrinks to nothing
+            if fontSize < 1:
+                print("Something has gone terribly wrong...")
+                exit(-1)
 
-    # Draw font on image
-    drawOutline(drawLayer, fontType, topText, (img.width/2 - widthTop/2, 0))
-    drawOutline(drawLayer, fontType, bottomText, (img.width/2 - widthBottom/2, img.height - (heightBottom + heightBottom/4)))
+        # Draw font on image
+        drawOutline(drawLayer, fontType, topText, (img.width/2 - widthTop/2, 0))
+        drawOutline(drawLayer, fontType, bottomText, (img.width/2 - widthBottom/2, img.height - (heightBottom + heightBottom/4)))
 
-    # Create another BytesIO stream for outputting the image content
-    output = io.BytesIO()
-    img.save(output, format='JPEG')
+        # Create another BytesIO stream for outputting the image content
+        output = io.BytesIO()
+        img.save(output, format='JPEG')
 
     # Last, return the final result
     if allIsWell:
