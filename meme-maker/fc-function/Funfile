@@ -1,3 +1,0 @@
-RUNTIME python3
-WORKDIR /code
-RUN fun-install pip install Pillow
