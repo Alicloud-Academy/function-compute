@@ -1,7 +1,7 @@
 # Meme Maker - Function Compute Example
 
 - Status: **OK**
-- Notes: Code tested and working as of 2020-06-11 (YYYY-MM-DD)
+- Notes: Code tested and working as of 2020-07-13 (YYYY-MM-DD)
 
 ## What
 
@@ -10,6 +10,10 @@ The function compute code in the `fc-function` folder sets up a "meme service", 
 Once the service is up and running, you can call the service (using the Function Compute URL or a custom domain bound to Function Compute). By including the URL parameters `imgUrl`, `topText`, and `bottomText`, you can direct this FC function to caption an arbitrary image from anywhere on the Internet and return the result to you as a JPEG image. For example:
 
 ![A Very Grumpy Cat...](meme.jpeg)
+
+Or this...
+
+![What A Successful Young Man](meme2.jpeg)
 
 ## How
 
