@@ -82,7 +82,7 @@ def handler(environ, start_response):
     # it is missing or malformed
     if allIsWell:
         if imgUrl == 'MISSING' or not imgUrl.startswith('http'):
-            retVal = 'Error: imgUrl parameter is missing or malformed. The imgUrl parameter passwed was: {}'.format(imgUrl)
+            retVal = 'Error: imgUrl parameter is missing or malformed. The imgUrl parameter password was: {}'.format(imgUrl)
             logger.info(retVal)
             allIsWell = False
 
