@@ -1,7 +1,7 @@
 # Meme Maker - Function Compute Example
 
 - Status: **OK**
-- Notes: Code tested and working as of 2020-07-13 (YYYY-MM-DD)
+- Notes: Code tested and working as of 2021-02-01 (YYYY-MM-DD)
 
 ## What
 
