@@ -69,19 +69,19 @@ To make sure things are working, we'll need to create some CloudMonitor Event-ba
 
 First, let's go to *Event Monitoring*, open the *Alert Rules* tab, and click on *Create Event Alert*:
 
-![[21_event_alert.png]]
+![Event Alert](images/21_event_alert.png)
 
 Set up the rule to trigger for any ECS-related event:
 
-![[22_event_rules.png]]
+![Event Rules](images/22_event_rules.png)
 
 Scroll down and configure the rule to trigger our `cm-event-fun` FC function:
 
-![[23_fc_config.png]]
+![FC Config](images/23_fc_config.png)
 
 If everything worked, we should see an entry like this in the Rules window:
 
-![[24_finished_event_alarm.png]]
+![Alarm Overview](images/24_finished_event_alarm.png)
 
 That's it! 
 
