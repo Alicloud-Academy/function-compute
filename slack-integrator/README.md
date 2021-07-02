@@ -61,4 +61,72 @@ We'll also create a "Host monitoring" Rule that calls the `cm-metric-fun` functi
 
 ## Testing things out
 
-This section is a *work in progress*. Coming soon. 
+To make sure things are working, we'll need to create some CloudMonitor Event-based and Metric-based rules, then trigger them. 
+
+### Creating CloudMonitor Rules
+
+#### Set up an Event-based Alarm Rule
+
+First, let's go to *Event Monitoring*, open the *Alert Rules* tab, and click on *Create Event Alert*:
+
+![[21_event_alert.png]]
+
+Set up the rule to trigger for any ECS-related event:
+
+![[22_event_rules.png]]
+
+Scroll down and configure the rule to trigger our `cm-event-fun` FC function:
+
+![[23_fc_config.png]]
+
+If everything worked, we should see an entry like this in the Rules window:
+
+![[24_finished_event_alarm.png]]
+
+That's it! 
+
+#### Set Up A Metric-based Alarm Rule
+
+From the left-hand menu in the CloudMonitor console, click on *Host Monitoring*, and then *Alert Rules*. FInally, click on *Create Alert Rule*:
+
+![Metric Alarm](images/25_metric_alarm.png)
+
+Next, configure the alarm to trigger whenever any ECS instance's CPU usage goes above 80% for more than one minute, then scroll down and paste the HTTP URL for our `cm-metric-fun` function into the *URL callback* textbox:
+
+![Alarm Config](images/26_alarm_config.png)
+
+![Alarm Callback](images/27_callback.png)
+
+**Important note: Remember to change the *https://* at the beginning of the Function Compute URL to *http://* intsead, as CloudMonitor doesn't currently support HTTPS**.
+
+After clicking *Confirm*, we should see our new Rule in the Alert Rules tab:
+
+![Alarm Overview](images/28_alarm_final.png)
+
+### Triggering CloudMonitor Rules
+
+We can test the event-based alarms by creating a new ECS instance (this will trigger our Event-based Alarm), then using the `stress` command to raise the instance's CPU usage to 100% for 2 minutes (this will trigger our Metric-based Alarm).
+
+If it works, we should see notifications like these showing up in our Slack chat:
+
+![Event Alarm](images/29_event_alarm.png)
+
+To test the "HighCPU" metric-based alarm, we need to give our ECS instance some busywork to do. If you created a Linux instance, you can use the `stress` command to generate a high CPU load. On Ubuntu 18.x and up, you can install it with:
+
+```
+apt update
+apt install -y stress
+```
+
+Then run it like this:
+
+```
+stress --cpu 8 --timeout 120s
+```
+
+This will launch 8 processes that will do busywork for 2 minutes (120 seconds). That should be long enough to trigger our rule and send a message like this one to Slack:
+
+![Metric Alarm](images/30_metric_alarm.png)
+
+**That's it! See where you can take things from here. Maybe add customized functions to process particular types of events or trigger custom-formatted Slack messages?** The possibilities are endless.
+
