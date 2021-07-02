@@ -1,0 +1,32 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  cm-svc:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: >-
+        CloudMonitor alert processing service, for integrating CloudMonitor with
+        Slack.
+    cm-event-fun:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Runtime: python3
+        Timeout: 60
+        MemorySize: 512
+        CodeUri: ./cm-event-fun
+    cm-metric-fun:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Runtime: python3
+        Timeout: 60
+        MemorySize: 512
+        CodeUri: ./cm-metric-fun
+      Events:
+        http-post:
+          Type: HTTP
+          Properties:
+            AuthType: anonymous
+            Methods:
+              - POST
