@@ -132,6 +132,22 @@ Add at least one valid VSwitch ID to this section, corresponding to one of the V
 
 Set this to a valid Security Group ID associated with your VPC. In our case, it doesn't matter very much which Security Group: RDS MySQL is going to allow or deny access to the database via an IP address whitelist rather than by Security Group ID. 
 
+### The tricky part: RAM Role access
+
+You'll also notice this line:
+
+```
+role: acs:ram::your_account_id:role/fc-role-name
+```
+
+You need to replace `your_account_id` with your own Alibaba Cloud account ID number, and `fc-role-name` with a RAM role that Function Compute can assume to manipulate VPC network settings.
+
+If you've used Function Compute inside a VPC before, you may already have a role under your account called `fc-default-role`, which you can reuse here.
+
+If not, you'll need to create that role yourself. The role should be a "Normal Service Role" with a trust policy that allows Function Compute to assume the role, and it should be bound to the `AliyunECSNetworkInterfaceManagementAccess` system policy.
+
+You can find step-by-step setup instructions in [this blog post](https://www.alibabacloud.com/blog/598341). Specifically, look at the paragraphs near the end of the section **Modifying The Code**. 
+
 ## Build And Deploy The Code
 
 You can now build the code locally by simply running:
@@ -180,7 +196,7 @@ This doesn't always work, so you *may* need to remove things manually sometimes.
 
 ## Next Steps
 
-If you want a step-by-step tutorial that walks you through the whole process of setting up the environment and testing it out, you can check out [this blog post]().
+If you want a step-by-step tutorial that walks you through the whole process of setting up the environment and testing it out, you can check out [this blog post](https://www.alibabacloud.com/blog/598341).
 
 ## Known Issues
 
