@@ -1,0 +1,80 @@
+edition: 1.0.0
+name: transform_fun
+access: default
+vars:
+  region: your_region
+  ecomm_service:
+    name: ecomm_service
+    description: E-Commerce data generator service
+    role: acs:ram::your_account_id:role/your_fc_role_name
+    internetAccess: false
+    vpcConfig:
+      vpcId: your_vpc_id
+      vswitchIds:
+        - your_vswitch_id
+      securityGroupId: your_security_group_id
+    tracingConfig: Disable
+services:
+  fc-ecomm_service-user_generator:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.ecomm_service}
+      function:
+        name: user_generator
+        handler: index.handler
+        timeout: 60
+        memorySize: 128
+        runtime: python3
+        instanceType: e1
+        environmentVariables: {}
+        codeUri: ./ecomm_service/user_generator
+      triggers:
+        - name: http_trigger
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
+  fc-ecomm_service-product_generator:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.ecomm_service}
+      function:
+        name: product_generator
+        handler: index.handler
+        timeout: 60
+        memorySize: 128
+        runtime: python3
+        instanceType: e1
+        environmentVariables: {}
+        codeUri: ./ecomm_service/product_generator
+      triggers:
+        - name: http_trigger
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
+  fc-ecomm_service-order_generator:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.ecomm_service}
+      function:
+        name: order_generator
+        handler: index.handler
+        timeout: 60
+        memorySize: 128
+        runtime: python3
+        instanceType: e1
+        environmentVariables: {}
+        codeUri: ./ecomm_service/order_generator
+      triggers:
+        - name: http_trigger
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
