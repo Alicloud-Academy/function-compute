@@ -10,7 +10,7 @@ My own code and configuration files (everything else) is also under an MIT licen
 
 # Building the Code
 
-First, `cd` into the `code` directory, and run:
+First, `cd` into the `code` directory (inside `fc-raytrace`), and run:
 
 ```
 docker build -t custom-fc .
