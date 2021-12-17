@@ -71,7 +71,7 @@ You should also replace `[tag]` at the end of the `push` and `tag` commands with
 
 # Deploying the Code
 
-Take a look at the contents of the `s.yaml` file: you will need to change the `image` field towards the bottom of the file. It looks like this:
+Take a look at the contents of the `s.yaml` file (in the `fc-raytrace` directory): you will need to change the `image` field towards the bottom of the file. It looks like this:
 
 ```yaml
 customContainerConfig:
@@ -79,6 +79,14 @@ customContainerConfig:
 ```
 
 Change the image information after `image:` so that it matches the value you used in the `tag` and `push` commands above. 
+
+You can then run:
+
+```
+s deploy
+```
+
+To deploy your function (again, from inside the `fc-raytrace` directory).
 
 If `s deploy` succeeds, Function Compute will return an *endpoint URL* which you can use to call your function. In my case, the output from `s deploy` looks something like this:
 
