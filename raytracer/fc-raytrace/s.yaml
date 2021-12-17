@@ -1,0 +1,31 @@
+edition: 1.0.0
+name: raytrace-app
+access: "default"
+
+vars:
+  region: ap-southeast-1
+  service:
+    name: raytrace-service
+    description: 'Raytracer Service'
+services:
+  raytrace-service: 
+    component: fc
+    props:
+      region: ${vars.region}
+      service: ${vars.service}
+      function:
+        name: raytrace-function
+        description: 'A raytracer in C++, called from Python 3'
+        timeout: 900
+        caPort: 9000
+        memorySize: 512
+        runtime: custom-container
+        customContainerConfig:
+          image: registry-intl.ap-southeast-1.aliyuncs.com/raytracer-test-ns/raytracer-test-repo:v1 # Replace this with the path to YOUR container registry + image 
+      triggers:
+        - name: httpTrigger
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
