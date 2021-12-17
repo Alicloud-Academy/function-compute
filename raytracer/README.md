@@ -27,7 +27,7 @@ This will invoke the `smallpt` raytracer inside the container with a "quality" s
 
 The image should look something like this:
 
-![Raytraced Image](image.ppm)
+![Raytraced Image](image.png)
 
 Not very good, but you can *almost* make out a scene. Increasing the `spp` value to 8, 16, or even 32 when invoking the function will result in a *much* better looking render, but will increase the render time significantly.
 
