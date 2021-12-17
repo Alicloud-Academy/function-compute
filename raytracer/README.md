@@ -36,7 +36,7 @@ Not very good, but you can *almost* make out a scene. Increasing the `spp` value
 **Important note:** If you are on an arm64 ("M1") Mac or other non-x86_64 hardware, you need to rebuild your container image **before** pushing it to Alibaba Cloud Container Registry. Specifically, you need to do something like this from within the `code` directory:
 
 ```
-docker buildx --platform linux/amd64 -t custom-fc-x86 .
+docker buildx build --platform linux/amd64 -t custom-fc-x86 .
 ```
 
 You then push *this* image to Alibaba Cloud Container Registry, instead of the one you built for local testing. 
